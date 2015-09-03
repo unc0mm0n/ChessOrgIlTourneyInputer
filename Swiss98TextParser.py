@@ -7,7 +7,8 @@ SCORE_ID = 4
 SCORE_CODES = {"1":"1", "0.5": "3", "0": "2"}
 
 ######
-# parse 
+# parse tournament files into multi layered array containing each round, and inside each round data of each game in order of tables.
+# returns an array of rounds, each round is an array of games as described in parseDataFromRound().
 def parse(location):
 
     data = []
@@ -34,6 +35,10 @@ def parse(location):
 
     return data
 
+######
+# Returns an array containing each game as [White player number, black player number, score_code] Where
+# score_code 1 = win for white, 2 = win for black, 3 = tie
+# Doesn't include data on special scores or automatic wins as the *.rnd files don't include that information for some reason.
 def parseDataFromRound(round, num_players):
     games = []
 
@@ -53,6 +58,7 @@ def parseDataFromRound(round, num_players):
 
     return games
 
+# Returns the number of players defined in the *.slp file
 def getNumberOfPlayers(location):
     try:
         file_name = open(location + STANDINGS_SUFFIX)
@@ -62,3 +68,8 @@ def getNumberOfPlayers(location):
         exit()
 
     return int(data[-2].split("|")[0])
+
+#Tries to get ids of players from the *.slp file, if present
+def getIdOfPlayers(location):
+
+    ids = []
