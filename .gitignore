@@ -1,0 +1,7 @@
+# Tournament files
+*.rnd
+*.stg
+*.slp
+
+# python compiles
+__pycache__
