@@ -2,7 +2,7 @@ Basic script to input tournament data into chess.org.il site.
 
 **Requires firefox installed and internet access**
 
-Usage: python ChessOrgIlScraper.py filename
+Usage: python chessil_tourney_inserter.py filename
 
 where filename is the name of the \*.slp file **without the ending**.
 

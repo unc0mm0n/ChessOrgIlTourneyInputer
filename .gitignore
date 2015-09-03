@@ -1,10 +1,5 @@
-# Tournament files
-*.rnd
-*.stg
-*.slp
-
-# Other random data files
-*.txt
+# data files folder
+data
 
 # python compiles
 __pycache__
