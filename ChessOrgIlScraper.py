@@ -28,7 +28,8 @@ SUFFIXES = [ID_SUFFIX_WHITE, ID_SUFFIX_BLACK, ID_SUFFIX_RESULT]
 
 def main(argv):
     data = getSwissData(argv[1].strip())
-    start(data)
+    ids = Swiss98TextParser.getIdOfPlayers(argv[1].strip())
+    start(data, ids)
 
 # getSwissData: Returns swiss perfect round data from the given slp file (and extras)
 def getSwissData(location):
@@ -36,27 +37,34 @@ def getSwissData(location):
 
 
 # Starts the main operation of opening a browser and inputting the data
-def start(data):
+def start(data, ids=None):
     driver = webdriver.Firefox()
     driver.get(TOURNEY_URL)
 
     input("Enter tournament details. After moving to the next window press enter.")
 
-    # Input player numbers from file
-    answer = ''
-    while (answer != 'y' and answer != 'n'):
+    if ids:
+        answer = input("Player id data found, would you like to insert it automatically? (y/n) " )
+    else:    # Input player numbers from file
         answer = input("Would you like to upload player IDs from file? (y/n) ")
-        if answer == 'y':
+        
+    while (answer != 'y' and answer != 'n'):
+        answer = input("Invalid response, please type y for yes or n for no only.")    
+
+    if answer == 'y':
+        if not ids:
             ids_location = input("Type location of file: ")
             ids = fetchIds(ids_location)
             if not ids:
-                continue
-            index = 0
-            while index < len(ids):
-                textID = buildNumId(index)
-                textbox = driver.find_element_by_id(textID)
-                textbox.send_keys(ids[index])
-                index += 1
+                print("Failed to load data from file.")
+                ids = []
+        print ("here with ", ids)
+        index = 0
+        while index < len(ids):
+            textID = buildNumId(index)
+            textbox = driver.find_element_by_id(textID)
+            textbox.send_keys(ids[index])
+            index += 1
 
     # Round and entry numbers
     round_number = data[0][0]
@@ -73,7 +81,6 @@ def start(data):
         while table < table_number:
 
             table_data = round_data[table]
-            print(table_data)
 
             # suffix matches index in data list, but it needs to be tracked
             index = 0
@@ -87,7 +94,6 @@ def start(data):
 
             table += 1
         round += 1
-
 
 def buildSelectId(round, table, suffix):
     round = round + ID_ROUND_START_NUM
@@ -113,7 +119,7 @@ def fetchIds(location):
         ids = f.read().split("\n")
     except FileNotFoundError:
         print("Unable to open file, please enter ids manually.")
-        return null
+        return None
     return ids
 
 main(sys.argv);

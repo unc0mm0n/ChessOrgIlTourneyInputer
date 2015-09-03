@@ -1,5 +1,6 @@
 ROUND_SUFFIX = ".rnd"
 STANDINGS_SUFFIX = ".slp"
+ID_TAG = "LOCAL_ID"
 
 WHITE_ID = 2
 BLACK_ID = 3
@@ -71,5 +72,22 @@ def getNumberOfPlayers(location):
 
 #Tries to get ids of players from the *.slp file, if present
 def getIdOfPlayers(location):
+    try:
+        f = open(location+".slp", "r")
+        data = f.read().split("\n")[0:-1];
+    except FileNotFoundError:
+        return null
 
+    header = data[0].split("|")
+    if not ID_TAG in header:
+        return null
+
+    id_location = header.index(ID_TAG)
     ids = []
+    for row in data[1::]:
+        ids.append(row.split("|")[id_location])
+
+    return ids
+    
+if __name__ == "__main__":
+    getIdOfPlayers("ev_699")

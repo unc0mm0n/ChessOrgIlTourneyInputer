@@ -3,5 +3,8 @@
 *.stg
 *.slp
 
+# Other random data files
+*.txt
+
 # python compiles
 __pycache__
