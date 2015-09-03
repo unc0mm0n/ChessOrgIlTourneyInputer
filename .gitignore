@@ -3,3 +3,12 @@ data
 
 # python compiles
 __pycache__
+
+# python env folders
+Lib/
+Include/
+build/
+Scripts/
+dist/
+selenium/
+pip-selfcheck.json

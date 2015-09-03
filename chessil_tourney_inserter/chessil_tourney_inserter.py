@@ -1,34 +1,40 @@
 import sys
-import math
 
-from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.support.ui import Select
+def main():
 
-import swiss98_text_parser
+    import math
 
-TOURNEY_URL = "http://comp.chess.org.il/comp_report.aspx";
+    from selenium import webdriver
+    from selenium.webdriver.common.keys import Keys
+    from selenium.webdriver.support.ui import Select
 
-ID_PREFIX = "CycleList_ctl"
-ID_MIDFIX = "_g_on_c_ctl"
-ID_SUFFIX_WHITE = "_p1"
-ID_SUFFIX_RESULT = "_result"
-ID_SUFFIX_BLACK = "_p2"
-ID_TABLE_START_NUM = 2
-ID_ROUND_START_NUM = 0
+    import swiss98_text_parser
+
+    if len(sys.argv) == 1:
+        print("Usage: chessil_tourney_inserter.py *tournament name*")
+        exit()
+
+    TOURNEY_URL = "http://comp.chess.org.il/comp_report.aspx";
+
+    ID_PREFIX = "CycleList_ctl"
+    ID_MIDFIX = "_g_on_c_ctl"
+    ID_SUFFIX_WHITE = "_p1"
+    ID_SUFFIX_RESULT = "_result"
+    ID_SUFFIX_BLACK = "_p2"
+    ID_TABLE_START_NUM = 2
+    ID_ROUND_START_NUM = 0
 
 
-ID_NUMBER_PREFIX = "id_list_ctl"
-ID_NUMBER_SUFFIX = "_TextBox1"
-ID_NUMBER_START_NUM = 2
+    ID_NUMBER_PREFIX = "id_list_ctl"
+    ID_NUMBER_SUFFIX = "_TextBox1"
+    ID_NUMBER_START_NUM = 2
 
-FREE_PLAYER_DA = '77'
+    FREE_PLAYER_DA = '77'
 
-SUFFIXES = [ID_SUFFIX_WHITE, ID_SUFFIX_BLACK, ID_SUFFIX_RESULT]
+    SUFFIXES = [ID_SUFFIX_WHITE, ID_SUFFIX_BLACK, ID_SUFFIX_RESULT]
 
-def main(argv):
-    data = getSwissData(argv[1].strip())
-    ids = swiss98_text_parser.getIdOfPlayers(argv[1].strip())
+    data = getSwissData(sys.argv[1].strip())
+    ids = swiss98_text_parser.getIdOfPlayers(sys.argv[1].strip())
     start(data, ids)
 
 # getSwissData: Returns swiss perfect round data from the given slp file (and extras)
@@ -123,8 +129,6 @@ def fetchIds(location):
     return ids
 
 if __name__ == "__main__":
-    if len(sys.argv) == 1:
-        print("Usage: chessil_tourney_inserter.py *tournament name*")
-        exit()
-    main(sys.argv);
+    
+    main();
     
