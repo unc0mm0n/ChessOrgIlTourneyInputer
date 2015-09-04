@@ -10,5 +10,5 @@ setup(name='chessil_tourney_inserter',
       zip_safe=False,
       entry_points={
       'console_scripts': [
-            'insertchessiltourney = chessil_tourney_inserter.chessil_tourney_inserter:main']
+            'insertchessiltourney = chessil_tourney_inserter.command_line:main']
       })

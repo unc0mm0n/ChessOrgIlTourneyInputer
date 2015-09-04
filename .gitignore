@@ -12,3 +12,4 @@ Scripts/
 dist/
 selenium/
 pip-selfcheck.json
+*.egg*

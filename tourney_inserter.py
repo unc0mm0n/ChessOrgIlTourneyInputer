@@ -5,7 +5,11 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 
-import Swiss98TextParser
+import chessil_tourney_inserter.swiss98_text_parser as swiss98_text_parser
+
+if len(sys.argv) == 1:
+    print("Usage: chessil_tourney_inserter.py *tournament name*")
+    exit()
 
 TOURNEY_URL = "http://comp.chess.org.il/comp_report.aspx";
 
@@ -26,14 +30,15 @@ FREE_PLAYER_DA = '77'
 
 SUFFIXES = [ID_SUFFIX_WHITE, ID_SUFFIX_BLACK, ID_SUFFIX_RESULT]
 
-def main(argv):
-    data = getSwissData(argv[1].strip())
-    ids = Swiss98TextParser.getIdOfPlayers(argv[1].strip())
+def main():
+
+    data = getSwissData(sys.argv[1].strip())
+    ids = swiss98_text_parser.getIdOfPlayers(sys.argv[1].strip())
     start(data, ids)
 
 # getSwissData: Returns swiss perfect round data from the given slp file (and extras)
 def getSwissData(location):
-    return Swiss98TextParser.parse(location)
+    return swiss98_text_parser.parse(location)
 
 
 # Starts the main operation of opening a browser and inputting the data
@@ -122,5 +127,7 @@ def fetchIds(location):
         return None
     return ids
 
-main(sys.argv);
+if __name__ == "__main__":
+    
+    main();
     
