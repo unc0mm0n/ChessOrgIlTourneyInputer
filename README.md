@@ -9,7 +9,7 @@ installation
 
 Usage
 ============
-> insertchessiltourney *tournament name*
+> insertchessiltournament *tournament name*
 
 where tournament name is the name of the \*.slp file **without the ending**.
 
