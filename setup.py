@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='chessil_tourney_inserter',
-      version='1.0',
+      version='1.1',
       description='Uploads tournament data to Israel\'s chess federation site from SwissPerfect 98 generated SPDE files',
       url='http://github.com/unc0mm0n/ChessOrgIlTourneyInputer',
       author='Yuval Wyborski',
